@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+    />
     <title>Baby Shower — Tejaswini & Murthy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -57,7 +60,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 100px 16px 40px; /* Safe mobile padding below the garland */
+        padding: 90px 12px 30px; /* Tighter padding to give layout more breathing room */
         position: relative;
         max-width: 1200px;
         margin: 0 auto;
@@ -70,7 +73,7 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 90px;
+        height: 80px;
         pointer-events: none;
         z-index: 1;
       }
@@ -87,7 +90,7 @@
         align-items: center;
         justify-content: center;
         width: 100%;
-        gap: 24px;
+        gap: 20px;
         z-index: 2;
       }
 
@@ -96,7 +99,7 @@
         justify-content: center;
         align-items: center;
         width: 100%;
-        min-height: 380px; /* Prevents shifting layouts on small screens */
+        min-height: 400px;
       }
 
       /* ---------- Intro copy above envelope ---------- */
@@ -110,6 +113,7 @@
           opacity 0.5s ease,
           transform 0.5s ease;
         width: 100%;
+        padding: 0 8px;
       }
       .intro.hide {
         opacity: 0;
@@ -120,8 +124,8 @@
 
       .eyebrow {
         font-family: "Karla", sans-serif;
-        font-size: 11px;
-        letter-spacing: 0.32em;
+        font-size: 13px;
+        letter-spacing: 0.28em;
         text-transform: uppercase;
         color: var(--rust);
         margin-bottom: 8px;
@@ -130,7 +134,11 @@
       .headline {
         font-family: "Fraunces", serif;
         font-weight: 500;
-        font-size: clamp(28px, 8vw, 48px);
+        font-size: clamp(
+          30px,
+          9vw,
+          48px
+        ); /* Larger starting size for mobile headers */
         color: var(--maroon);
         margin: 0 0 8px;
         line-height: 1.2;
@@ -140,7 +148,7 @@
         color: var(--rust);
       }
       .sub {
-        font-size: 14px;
+        font-size: 15px;
         color: var(--ink-soft);
         margin: 0 0 12px;
         letter-spacing: 0.02em;
@@ -150,8 +158,8 @@
       /* ---------- Envelope ---------- */
       .envelope-wrap {
         position: relative;
-        width: 100%;
-        max-width: 350px;
+        width: 94%; /* Fills more mobile screen width */
+        max-width: 400px;
         aspect-ratio: 3 / 2.05;
         cursor: pointer;
         perspective: 1600px;
@@ -168,10 +176,10 @@
       .envelope-body {
         position: absolute;
         inset: 0;
-        border-radius: 6px;
+        border-radius: 8px;
         background: linear-gradient(160deg, var(--paper), var(--cream-deep));
         box-shadow:
-          0 2px 4px rgba(110, 31, 42, 0.08),
+          0 4px 10px rgba(110, 31, 42, 0.08),
           0 24px 46px -18px rgba(110, 31, 42, 0.35),
           inset 0 0 0 1px rgba(200, 155, 60, 0.35);
         overflow: hidden;
@@ -231,8 +239,8 @@
         padding-top: 14%;
       }
       .letter-peek .peek-mark {
-        width: 34px;
-        height: 34px;
+        width: 38px;
+        height: 38px;
         opacity: 0.55;
       }
 
@@ -264,8 +272,8 @@
         position: absolute;
         top: 41%;
         left: 50%;
-        width: 54px;
-        height: 54px;
+        width: 58px;
+        height: 58px;
         transform: translate(-50%, -50%);
         z-index: 5;
         filter: drop-shadow(0 6px 10px rgba(110, 31, 42, 0.35));
@@ -288,7 +296,7 @@
         z-index: 2;
         font-family: "Cormorant Garamond", serif;
         font-style: italic;
-        font-size: 16px;
+        font-size: 18px;
         color: var(--maroon);
         letter-spacing: 0.02em;
       }
@@ -296,8 +304,8 @@
       /* ---------- Invitation card (revealed) ---------- */
       .card-wrap {
         position: relative;
-        width: 100%;
-        max-width: 380px;
+        width: 96%; /* Maximize display room on mobile viewports */
+        max-width: 410px;
         opacity: 0;
         transform: translateY(28px) scale(0.98);
         transition:
@@ -314,10 +322,10 @@
       .card {
         position: relative;
         background: var(--paper);
-        border-radius: 14px;
-        padding: 28px 18px 24px;
+        border-radius: 16px;
+        padding: 32px 20px 28px;
         box-shadow:
-          0 20px 40px -16px rgba(110, 31, 42, 0.35),
+          0 25px 50px -20px rgba(110, 31, 42, 0.35),
           0 2px 0 rgba(200, 155, 60, 0.5) inset;
         overflow: hidden;
         text-align: center;
@@ -345,7 +353,7 @@
       }
 
       .card-eyebrow {
-        font-size: 11px;
+        font-size: 12px;
         letter-spacing: 0.34em;
         text-transform: uppercase;
         color: var(--rust);
@@ -354,10 +362,10 @@
       }
 
       .portrait {
-        width: 108px;
-        height: 108px;
+        width: 114px;
+        height: 114px;
         border-radius: 50%;
-        margin: 14px auto 6px;
+        margin: 16px auto 8px;
         padding: 4px;
         background: conic-gradient(
           from 180deg,
@@ -383,13 +391,14 @@
         font-family: "Fraunces", serif;
         font-weight: 500;
         font-style: italic;
-        font-size: clamp(24px, 6.5vw, 30px);
+        font-size: clamp(28px, 7.5vw, 34px); /* Boosted layout font sizes */
         color: var(--maroon);
         margin: 8px 0 2px;
         line-height: 1.2;
       }
       .name-tag {
-        font-size: 12px;
+        font-size: 13.5px;
+        font-weight: 500;
         color: var(--ink-soft);
         margin-bottom: 14px;
         letter-spacing: 0.03em;
@@ -400,16 +409,16 @@
         align-items: center;
         justify-content: center;
         gap: 10px;
-        margin: 4px 0 14px;
+        margin: 4px 0 16px;
         color: var(--marigold);
       }
       .divider svg {
-        width: 14px;
-        height: 14px;
+        width: 16px;
+        height: 16px;
       }
       .divider .line {
         height: 1px;
-        width: 34px;
+        width: 40px;
         background: linear-gradient(
           90deg,
           transparent,
@@ -419,11 +428,11 @@
       }
 
       .details-msg {
-        font-size: 13.5px;
+        font-size: 14.5px;
         color: var(--ink);
-        line-height: 1.6;
-        margin: 0 0 18px;
-        padding: 0 2px;
+        line-height: 1.65;
+        margin: 0 0 20px;
+        padding: 0 4px;
       }
 
       .date-badge {
@@ -431,16 +440,16 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 72px;
-        height: 72px;
+        width: 76px;
+        height: 76px;
         border-radius: 12px;
         background: linear-gradient(160deg, var(--rust), var(--maroon));
         color: var(--cream);
-        margin: 0 auto 16px;
+        margin: 0 auto 18px;
         box-shadow: 0 10px 18px -8px rgba(110, 31, 42, 0.5);
       }
       .date-badge .dow {
-        font-size: 10px;
+        font-size: 11px;
         letter-spacing: 0.18em;
         text-transform: uppercase;
         opacity: 0.85;
@@ -448,13 +457,13 @@
       }
       .date-badge .dnum {
         font-family: "Fraunces", serif;
-        font-size: 24px;
+        font-size: 26px;
         line-height: 1;
         font-weight: 600;
         margin-top: 2px;
       }
       .date-badge .mon {
-        font-size: 9.5px;
+        font-size: 10.5px;
         letter-spacing: 0.18em;
         text-transform: uppercase;
         opacity: 0.85;
@@ -465,19 +474,18 @@
         display: flex;
         justify-content: center;
         gap: 16px;
-        margin: 0 0 20px;
-        flex-wrap: nowrap; /* Forces layout stability on small widths */
+        margin: 0 0 22px;
+        width: 100%;
       }
       .t-item {
         display: flex;
         flex-direction: column;
         align-items: center;
         flex: 1;
-        min-width: 85px;
       }
       .t-item .t-icon {
-        width: 34px;
-        height: 34px;
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
         background: var(--cream-deep);
         display: flex;
@@ -492,16 +500,16 @@
         height: 16px;
       }
       .t-item .t-label {
-        font-size: 10px;
+        font-size: 11px;
         letter-spacing: 0.12em;
         text-transform: uppercase;
         color: var(--ink-soft);
-        margin-bottom: 2px;
+        margin-bottom: 3px;
       }
       .t-item .t-time {
         font-family: "Fraunces", serif;
         font-weight: 600;
-        font-size: 15px;
+        font-size: 16.5px;
         color: var(--maroon);
       }
       .t-sep {
@@ -520,53 +528,54 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        padding: 12px 22px;
+        padding: 13px 24px;
         border-radius: 30px;
         background: linear-gradient(120deg, var(--marigold), var(--rust));
         color: var(--paper);
         text-decoration: none;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 600;
         letter-spacing: 0.04em;
         box-shadow: 0 12px 20px -10px rgba(168, 70, 28, 0.55);
-        transition:
-          transform 0.25s ease,
-          box-shadow 0.25s ease;
+        transition: transform 0.25s ease;
+        width: 100%; /* Makes the button nice and tap-friendly on touch devices */
+        justify-content: center;
       }
       .cta:hover {
         transform: translateY(-1px);
       }
       .cta svg {
-        width: 14px;
-        height: 14px;
+        width: 15px;
+        height: 15px;
       }
 
       .card-footer {
-        margin-top: 18px;
+        margin-top: 20px;
         font-family: "Cormorant Garamond", serif;
         font-style: italic;
-        font-size: 14px;
+        font-size: 15px;
         color: var(--ink-soft);
       }
 
       .rsvp-foot {
         text-align: center;
-        margin-top: 14px;
-        font-size: 11px;
+        margin-top: 16px;
+        font-size: 12px;
         color: var(--ink-soft);
         letter-spacing: 0.05em;
+        font-weight: 500;
       }
 
       footer.credit {
         position: relative;
         z-index: 2;
         text-align: center;
-        margin-top: 28px;
-        font-size: 10px;
+        margin-top: 24px;
+        font-size: 11px;
         letter-spacing: 0.16em;
         text-transform: uppercase;
         color: var(--ink-soft);
-        opacity: 0.55;
+        opacity: 0.6;
         width: 100%;
       }
 
@@ -603,24 +612,29 @@
           transform: translateX(-20px);
         }
 
-        .card {
-          padding: 35px 24px 30px;
+        .envelope-wrap {
+          width: 100%;
+        }
+
+        .card-wrap {
+          width: 100%;
+        }
+
+        .cta {
+          width: auto;
         }
       }
 
-      /* Extreme Micro-Screens (e.g. older phones under 350px width) */
+      /* Fallback optimization for absolute tight widths (under 350px width) */
       @media (max-width: 340px) {
-        .timeline {
-          gap: 8px;
-        }
-        .t-item {
-          min-width: 70px;
+        .name {
+          font-size: 25px;
         }
         .t-item .t-time {
-          font-size: 13.5px;
+          font-size: 14px;
         }
         .card {
-          padding: 24px 12px 20px;
+          padding: 24px 14px 20px;
         }
       }
     </style>
@@ -723,8 +737,8 @@
 
               <div class="date-badge">
                 <span class="dow">Sun</span>
-                <span class="dnum">24</span>
-                <span class="mon">May</span>
+                <span class="dnum">7</span>
+                <span class="mon">July</span>
               </div>
 
               <div class="timeline">
@@ -742,7 +756,7 @@
                     </svg>
                   </div>
                   <div class="t-label">Srimantha</div>
-                  <div class="t-time">10:30 AM</div>
+                  <div class="t-time">11:00 AM</div>
                 </div>
                 <div class="t-sep"></div>
                 <div class="t-item">
@@ -758,15 +772,14 @@
                     </svg>
                   </div>
                   <div class="t-label">Lunch</div>
-                  <div class="t-time">12:30 PM</div>
+                  <div class="t-time">12:00 PM</div>
                 </div>
               </div>
 
               <a
                 href="https://share.google/CKJypjAoAh51l2xrl"
-                class="cta"
                 target="_blank"
-                rel="noopener noreferrer"
+                class="cta"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -784,7 +797,7 @@
                 Your presence is our most cherished gift
               </div>
             </div>
-            <div class="rsvp-foot">RSVP by May 10th • +1 (555) 019-2834</div>
+            <div class="rsvp-foot"></div>
           </div>
         </div>
       </div>
