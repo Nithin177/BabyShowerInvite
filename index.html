@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baby Shower — Tejaswini Murthy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --cream: #fbf2e2;
+        --cream-deep: #f2e4c9;
+        --paper: #fffbf3;
+        --rust: #a8461c;
+        --maroon: #6e1f2a;
+        --marigold: #e8862e;
+        --marigold-light: #f2a94e;
+        --rose: #d9a9a0;
+        --ink: #2e2117;
+        --ink-soft: #6b5a4b;
+        --gold: #c89b3c;
+        --thread: #8c5a2b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+        background:
+          radial-gradient(
+            1200px 800px at 15% -10%,
+            #fff6e6 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            1000px 700px at 110% 10%,
+            #f7e2c4 0%,
+            transparent 55%
+          ),
+          var(--cream);
+        font-family: "Karla", sans-serif;
+        color: var(--ink);
+        overflow-x: hidden;
+      }
+
+      .stage {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 140px 18px 60px; /* Increased top padding to prevent garland collision */
+        position: relative;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 40px;
+      }
+
+      /* ---------- Ambient marigold garland strung across the top ---------- */
+      .garland {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 120px;
+        pointer-events: none;
+        z-index: 1;
+      }
+      .garland svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      /* ---------- Main Interactive Container ---------- */
+      .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 24px;
+        z-index: 2;
+      }
+
+      .interactive-zone {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 420px; /* Prevents layout shifting when envelope opens */
+      }
+
+      /* ---------- Intro copy above envelope ---------- */
+      .intro {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition:
+          opacity 0.5s ease,
+          transform 0.5s ease;
+        width: 100%;
+      }
+      .intro.hide {
+        opacity: 0;
+        transform: translateY(-14px);
+        pointer-events: none;
+        display: none;
+      }
+
+      .eyebrow {
+        font-family: "Karla", sans-serif;
+        font-size: 12.5px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--rust);
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+      .headline {
+        font-family: "Fraunces", serif;
+        font-weight: 500;
+        font-size: clamp(32px, 7vw, 48px);
+        color: var(--maroon);
+        margin: 0 0 12px;
+        line-height: 1.15;
+      }
+      .headline em {
+        font-style: italic;
+        color: var(--rust);
+      }
+      .sub {
+        font-size: 15px;
+        color: var(--ink-soft);
+        margin: 0 0 16px;
+        letter-spacing: 0.02em;
+        line-height: 1.4;
+      }
+
+      /* ---------- Envelope ---------- */
+      .envelope-wrap {
+        position: relative;
+        width: 100%;
+        max-width: 380px;
+        aspect-ratio: 3 / 2.05;
+        cursor: pointer;
+        perspective: 1600px;
+        -webkit-tap-highlight-color: transparent;
+        transition: transform 0.3s ease;
+      }
+      .envelope-wrap:hover:not(.opened) {
+        transform: scale(1.02);
+      }
+      .envelope-wrap.opened {
+        cursor: default;
+      }
+
+      .envelope-body {
+        position: absolute;
+        inset: 0;
+        border-radius: 6px;
+        background: linear-gradient(160deg, var(--paper), var(--cream-deep));
+        box-shadow:
+          0 2px 4px rgba(110, 31, 42, 0.08),
+          0 24px 46px -18px rgba(110, 31, 42, 0.35),
+          inset 0 0 0 1px rgba(200, 155, 60, 0.35);
+        overflow: hidden;
+      }
+      /* subtle inner pockets */
+      .envelope-body::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 38%;
+        background: linear-gradient(
+          180deg,
+          rgba(216, 169, 160, 0.16),
+          rgba(216, 169, 160, 0)
+        );
+      }
+      .side-fold {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 52%;
+        background: linear-gradient(
+          90deg,
+          rgba(168, 70, 28, 0.07),
+          rgba(168, 70, 28, 0)
+        );
+        z-index: 1;
+      }
+      .side-fold.left {
+        left: 0;
+        clip-path: polygon(0 0, 100% 50%, 0 100%);
+      }
+      .side-fold.right {
+        right: 0;
+        transform: scaleX(-1);
+        clip-path: polygon(0 0, 100% 50%, 0 100%);
+      }
+
+      /* the letter that slides up out of the envelope */
+      .letter-peek {
+        position: absolute;
+        left: 6%;
+        right: 6%;
+        top: 10%;
+        height: 88%;
+        border-radius: 4px 4px 0 0;
+        background: var(--paper);
+        box-shadow:
+          0 -2px 10px rgba(46, 33, 23, 0.08),
+          inset 0 0 0 1px rgba(200, 155, 60, 0.25);
+        transform: translateY(96%);
+        transition: transform 1s cubic-bezier(0.62, -0.03, 0.2, 1.06);
+        z-index: 2;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 14%;
+      }
+      .letter-peek .peek-mark {
+        width: 34px;
+        height: 34px;
+        opacity: 0.55;
+      }
+
+      .envelope-wrap.opened .letter-peek {
+        transform: translateY(-64%);
+      }
+
+      /* front flap (top triangle) that opens */
+      .flap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 58%;
+        background: linear-gradient(150deg, var(--rose), var(--rust) 120%);
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+        transform-origin: top center;
+        transition:
+          transform 0.85s cubic-bezier(0.5, 0.02, 0.16, 1),
+          filter 0.6s ease;
+        z-index: 3;
+        box-shadow: 0 10px 18px -12px rgba(46, 33, 23, 0.4);
+      }
+      .envelope-wrap.opened .flap {
+        transform: rotateX(178deg);
+        filter: brightness(0.94);
+      }
+
+      /* wax-style marigold seal */
+      .seal {
+        position: absolute;
+        top: 41%;
+        left: 50%;
+        width: 58px;
+        height: 58px;
+        transform: translate(-50%, -50%);
+        z-index: 5;
+        filter: drop-shadow(0 6px 10px rgba(110, 31, 42, 0.35));
+        transition:
+          opacity 0.35s ease 0.05s,
+          transform 0.5s ease;
+      }
+      .envelope-wrap.opened .seal {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.4);
+        pointer-events: none;
+      }
+
+      .envelope-caption {
+        position: absolute;
+        bottom: 10%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 2;
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 17px;
+        color: var(--maroon);
+        letter-spacing: 0.02em;
+      }
+
+      /* ---------- Invitation card (revealed) ---------- */
+      .card-wrap {
+        position: relative;
+        width: 100%;
+        max-width: 420px;
+        opacity: 0;
+        transform: translateY(28px) scale(0.98);
+        transition:
+          opacity 0.7s ease 0.35s,
+          transform 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) 0.35s;
+        pointer-events: none;
+      }
+      .card-wrap.show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+      }
+
+      .card {
+        position: relative;
+        background: var(--paper);
+        border-radius: 14px;
+        padding: 35px 24px 30px;
+        box-shadow:
+          0 30px 60px -24px rgba(110, 31, 42, 0.4),
+          0 2px 0 rgba(200, 155, 60, 0.5) inset;
+        overflow: hidden;
+        text-align: center;
+        width: 100%;
+      }
+      .card::before,
+      .card::after {
+        content: "";
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        height: 1px;
+        background: repeating-linear-gradient(
+          90deg,
+          var(--gold) 0 6px,
+          transparent 6px 11px
+        );
+        opacity: 0.6;
+      }
+      .card::before {
+        top: 12px;
+      }
+      .card::after {
+        bottom: 12px;
+      }
+
+      .card-eyebrow {
+        font-size: 11.5px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: var(--rust);
+        font-weight: 600;
+        margin-top: 12px;
+      }
+
+      .portrait {
+        width: 118px;
+        height: 118px;
+        border-radius: 50%;
+        margin: 16px auto 6px;
+        padding: 5px;
+        background: conic-gradient(
+          from 180deg,
+          var(--marigold),
+          var(--rose),
+          var(--marigold-light),
+          var(--marigold)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .portrait img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        border: 3px solid var(--paper);
+      }
+
+      .name {
+        font-family: "Fraunces", serif;
+        font-weight: 500;
+        font-style: italic;
+        font-size: clamp(26px, 6.2vw, 32px);
+        color: var(--maroon);
+        margin: 8px 0 2px;
+        line-height: 1.15;
+      }
+      .name-tag {
+        font-size: 12.5px;
+        color: var(--ink-soft);
+        margin-bottom: 18px;
+        letter-spacing: 0.03em;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin: 6px 0 18px;
+        color: var(--marigold);
+      }
+      .divider svg {
+        width: 16px;
+        height: 16px;
+      }
+      .divider .line {
+        height: 1px;
+        width: 44px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+      }
+
+      .details-msg {
+        font-size: 14px;
+        color: var(--ink);
+        line-height: 1.65;
+        margin: 0 0 22px;
+        padding: 0 4px;
+      }
+
+      .date-badge {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 78px;
+        height: 78px;
+        border-radius: 12px;
+        background: linear-gradient(160deg, var(--rust), var(--maroon));
+        color: var(--cream);
+        margin: 0 auto 20px;
+        box-shadow: 0 12px 20px -10px rgba(110, 31, 42, 0.55);
+      }
+      .date-badge .dow {
+        font-size: 10.5px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        opacity: 0.85;
+        margin-top: 6px;
+      }
+      .date-badge .dnum {
+        font-family: "Fraunces", serif;
+        font-size: 26px;
+        line-height: 1;
+        font-weight: 600;
+        margin-top: 2px;
+      }
+      .date-badge .mon {
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        opacity: 0.85;
+        margin-bottom: 6px;
+      }
+
+      .timeline {
+        display: flex;
+        justify-content: center;
+        gap: 26px;
+        margin: 0 0 24px;
+      }
+      .t-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 98px;
+      }
+      .t-item .t-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--cream-deep);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 8px;
+        color: var(--rust);
+        box-shadow: inset 0 0 0 1px rgba(200, 155, 60, 0.4);
+      }
+      .t-item .t-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+      .t-item .t-label {
+        font-size: 10.5px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-bottom: 3px;
+      }
+      .t-item .t-time {
+        font-family: "Fraunces", serif;
+        font-weight: 600;
+        font-size: 17px;
+        color: var(--maroon);
+      }
+      .t-sep {
+        width: 1px;
+        align-self: stretch;
+        background: linear-gradient(
+          180deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        margin-top: 6px;
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 13px 26px;
+        border-radius: 30px;
+        background: linear-gradient(120deg, var(--marigold), var(--rust));
+        color: var(--paper);
+        text-decoration: none;
+        font-size: 13.5px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        box-shadow: 0 14px 24px -12px rgba(168, 70, 28, 0.55);
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      .cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 18px 28px -12px rgba(168, 70, 28, 0.6);
+      }
+      .cta svg {
+        width: 15px;
+        height: 15px;
+      }
+
+      .card-footer {
+        margin-top: 22px;
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 14.5px;
+        color: var(--ink-soft);
+      }
+
+      .rsvp-foot {
+        text-align: center;
+        margin-top: 16px;
+        font-size: 11.5px;
+        color: var(--ink-soft);
+        letter-spacing: 0.05em;
+      }
+
+      footer.credit {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        margin-top: 34px;
+        font-size: 10.5px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        opacity: 0.55;
+        width: 100%;
+      }
+
+      /* ---------- Media Queries for Tablets & Laptops ---------- */
+      @media (min-width: 768px) {
+        .stage {
+          padding: 160px 40px 60px;
+        }
+
+        .main-container {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          gap: 50px;
+        }
+
+        .intro {
+          text-align: left;
+          align-items: flex-start;
+          flex: 1;
+          max-width: 480px;
+        }
+
+        .interactive-zone {
+          flex: 1;
+          max-width: 450px;
+          justify-content: flex-end;
+        }
+
+        .intro.hide {
+          display: flex; /* Keep layout structurally intact but visually clean */
+          opacity: 0;
+          transform: translateX(-20px);
+        }
+      }
+
+      @media (max-width: 380px) {
+        .timeline {
+          gap: 14px;
+        }
+        .t-item {
+          min-width: 75px;
+        }
+        .card {
+          padding: 30px 16px 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage">
+      <div class="garland" aria-hidden="true">
+        <svg viewBox="0 0 800 120" preserveAspectRatio="none">
+          <path
+            d="M0,10 Q100,90 200,20 T400,20 T600,20 T800,10"
+            fill="none"
+            stroke="#8C5A2B"
+            stroke-width="2"
+            opacity="0.55"
+          />
+          <g id="flowers"></g>
+        </svg>
+      </div>
+
+      <div class="main-container">
+        <div class="intro" id="intro">
+          <div class="eyebrow">Please Join Us</div>
+          <h1 class="headline">A little one is<br /><em>on the way</em></h1>
+          <p class="sub">You're warmly invited to celebrate with us</p>
+        </div>
+
+        <div class="interactive-zone">
+          <div class="envelope-wrap" id="envelope">
+            <div class="envelope-body">
+              <div class="side-fold left"></div>
+              <div class="side-fold right"></div>
+              <div class="letter-peek">
+                <svg class="peek-mark" viewBox="0 0 24 24" fill="none">
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                    stroke="#C89B3C"
+                    stroke-width="1.4"
+                  />
+                  <path
+                    d="M8 12c1.2-2 2.2-2 4 0s2.8 2 4 0"
+                    stroke="#A8461C"
+                    stroke-width="1.4"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <div class="flap"></div>
+              <div class="seal">
+                <svg viewBox="0 0 60 60" fill="none">
+                  <circle cx="30" cy="30" r="28" fill="#E8862E" />
+                  <circle
+                    cx="30"
+                    cy="30"
+                    r="28"
+                    fill="none"
+                    stroke="#C89B3C"
+                    stroke-width="1.5"
+                  />
+                  <g fill="#FBF2E2">
+                    <circle cx="30" cy="18" r="5" />
+                    <circle cx="41" cy="26" r="5" />
+                    <circle cx="37" cy="39" r="5" />
+                    <circle cx="23" cy="39" r="5" />
+                    <circle cx="19" cy="26" r="5" />
+                    <circle cx="30" cy="29" r="6" fill="#A8461C" />
+                  </g>
+                </svg>
+              </div>
+              <div class="envelope-caption">tap to open</div>
+            </div>
+          </div>
+
+          <div class="card-wrap" id="cardWrap">
+            <div class="card">
+              <div class="card-eyebrow">Baby Shower</div>
+
+              <div class="portrait">
+                <img src="./Images/parents.jpeg" alt="Tejaswini & Murthy" />
+              </div>
+
+              <div class="name">Tejaswini & Murthy</div>
+              <div class="name-tag">Parents-to-be</div>
+
+              <div class="divider">
+                <div class="line"></div>
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                  />
+                </svg>
+                <div class="line"></div>
+              </div>
+
+              <div class="details-msg">
+                Join us for an afternoon filled with love, laughter, and
+                blessings as we prepare for our sweet bundle of joy.
+              </div>
+
+              <div class="date-badge">
+                <span class="dow">Sun</span>
+                <span class="dnum">7</span>
+                <span class="mon">July</span>
+              </div>
+
+              <div class="timeline">
+                <div class="t-item">
+                  <div class="t-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"
+                      />
+                    </svg>
+                  </div>
+                  <div class="t-label">Srimantha</div>
+                  <div class="t-time">11:00 AM</div>
+                </div>
+                <div class="t-sep"></div>
+                <div class="t-item">
+                  <div class="t-icon">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 6v6l4 2" />
+                    </svg>
+                  </div>
+                  <div class="t-label">Lunch</div>
+                  <div class="t-time">12:00 PM</div>
+                </div>
+              </div>
+
+              <a href="https://share.google/CKJypjAoAh51l2xrl" class="cta">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                View Venue Location
+              </a>
+
+              <div class="card-footer">
+                Your presence is our most cherished gift
+              </div>
+            </div>
+            <div class="rsvp-foot"></div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="credit">With Love, The Family</footer>
+    </div>
+
+    <script>
+      // Simple functional click events to animate elements cleanly
+      const envelope = document.getElementById("envelope");
+      const cardWrap = document.getElementById("cardWrap");
+      const intro = document.getElementById("intro");
+
+      envelope.addEventListener("click", () => {
+        if (!envelope.classList.contains("opened")) {
+          envelope.classList.add("opened");
+
+          // Delay presentation transitions to complement the envelope slide speed
+          setTimeout(() => {
+            envelope.style.display = "none";
+            intro.classList.add("hide");
+            cardWrap.classList.add("show");
+          }, 1000);
+        }
+      });
+    </script>
+  </body>
+</html>
